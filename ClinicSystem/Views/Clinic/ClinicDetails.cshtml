@@ -1,0 +1,30 @@
+﻿
+@model ClinicSystem.Models.Clinic
+
+<div class="card">
+    <img class="card-img-top" src="@Model.ImagePath" alt="Clinic Image">
+    <div class="card-body">
+        <h3 class="card-title">@Model.Name</h3>
+    </div>
+</div>
+
+<h4 class="mt-5">Doctors in this Clinic:</h4>
+<div class="row">
+    @foreach (var doctor in Model.Doctors)
+    {
+        <div class="col-md-4">
+            <div class="card mb-4">
+                <img class="card-img-top" src="@doctor.ImagePath" alt="Doctor Image">
+                <div class="card-body">
+                    <h5 class="card-title">@doctor.FirstName @doctor.LastName</h5>
+                    <p class="card-text">Title: @doctor.Title</p>
+                    <p class="card-text">Experience: @doctor.ExperienceYears years</p>
+                    <a href="@Url.Action("MakeReservation", "Home", new { doctorId = doctor.Id })" class="btn btn-success">Make a Reservation</a>
+                </div>
+            </div>
+        </div>
+    }
+
+</div>
+
+

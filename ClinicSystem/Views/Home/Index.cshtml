@@ -1,0 +1,20 @@
+﻿@{
+    ViewData["Title"] = "Home Page";
+}
+
+@model List<ClinicSystem.Models.Clinic>
+
+<div class="row">
+    @foreach (var clinic in Model)
+    {
+        <div class="col-md-4">
+            <div class="card mb-4">
+                <img class="card-img-top" src="@clinic.ImagePath" alt="Clinic Image">
+                <div class="card-body">
+                    <h5 class="card-title">@clinic.Name</h5>
+                    <a href="@Url.Action("ClinicDetails", "Clinic", new { id = @clinic.Id })" class="btn btn-primary">View Clinic</a>
+                </div>
+            </div>
+        </div>
+    }
+</div>
