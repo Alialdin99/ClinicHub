@@ -1,0 +1,19 @@
+﻿
+@model List<DateTime>
+@{
+    ViewData["Title"] = "Select a Day";
+    int doctorId = ViewBag.DoctorId;
+}
+
+<h2>Select a Day</h2>
+
+<ul>
+    @foreach (var day in Model)
+    {
+        <li>
+            <a href="@Url.Action("SelectTimeSlots", "Reservation", new { doctorId = doctorId, selectedDate = day })">
+                @day.ToString("dddd, MMMM dd, yyyy")
+            </a>
+        </li>
+    }
+</ul>

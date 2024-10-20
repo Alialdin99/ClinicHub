@@ -1,0 +1,21 @@
+﻿@model List<DateTime>
+@{
+    ViewData["Title"] = "Select a Time Slot";
+    int docId = ViewBag.DoctorId;
+    DateTime selectedDate = ViewBag.SelectedDate;
+}
+
+<h2>Select a Time Slot on @selectedDate.ToString("dddd, MMMM dd, yyyy")</h2>
+
+<ul>
+    @foreach (var slot in Model)
+    {
+        <li>
+            <form asp-action="MakeReservation" method="post">
+                <input type="hidden" name="doctorId" value="@docId" />
+                <input type="hidden" name="selectedSlot" value="@slot" />
+                <button type="submit">@slot.ToString("hh:mm tt")</button>
+            </form>
+        </li>
+    }
+</ul>

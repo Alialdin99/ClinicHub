@@ -1,5 +1,6 @@
 ﻿using ClinicSystem.DataContext;
 using ClinicSystem.Models;
+using ClinicSystem.Repositories;
 using ClinicSystem.Repositories.Interfaces;
 using Microsoft.EntityFrameworkCore;
 using NuGet.Protocol.Core.Types;
@@ -9,9 +10,7 @@ namespace ClinicSystem.Services
     public class ReservationService
     {
         public readonly IReservationRepository _repository;
-        private readonly TimeSpan SlotDuration = TimeSpan.FromMinutes(30);
-        private readonly TimeSpan StartTime = TimeSpan.FromHours(9);
-        private readonly TimeSpan EndTime = TimeSpan.FromHours(17);
+  
         public ReservationService(IReservationRepository repository)
         {
             _repository = repository;
@@ -44,9 +43,9 @@ namespace ClinicSystem.Services
             return _repository.Delete(id);
         }
 
-        public bool MakeReservation(string userId, int doctorId,int ClinicId , DateTime appointmenTime)
+        public bool MakeReservation(string userId, int doctorId,int ClinicId , DateTime appointmentTime)
         {
-            bool isAvaliable = _repository.IsAvaliable(doctorId, appointmenTime);
+            bool isAvaliable = _repository.IsAvaliable(doctorId, appointmentTime);
             if (isAvaliable)
             {
                 var reservation = new Reservation
@@ -54,7 +53,7 @@ namespace ClinicSystem.Services
                     UserId = userId,
                     DoctorId = doctorId,
                     ClinicId = ClinicId,
-                    AppointmentDate = appointmenTime,
+                    AppointmentDate = appointmentTime,
                     Status = "Confirmed"
                 };
                 _repository.Add(reservation);
@@ -64,19 +63,22 @@ namespace ClinicSystem.Services
         }
         public List<DateTime> GetAvailableSlots(int doctorId, DateTime date)
         {
-            List<DateTime> allSlots = new List<DateTime>();
-            DateTime currentSlot = date.Date.Add(StartTime);
-            DateTime endOfDay = date.Date.Add(EndTime);
+            List<DateTime> allSlots = _repository.GetSlotsForDay(doctorId, date);
+            var reservedSlots = _repository.GetReservedSlots(doctorId, date);
+            return allSlots.Except(reservedSlots).ToList();
+        }
 
-            while (currentSlot < endOfDay)
+        public List<DateTime> GetNext14Days()
+        {
+            List<DateTime> days = new List<DateTime>();
+            DateTime today = DateTime.Today;
+
+            for (int i = 0; i < 14; i++)
             {
-                allSlots.Add(currentSlot);
-                currentSlot = currentSlot.Add(SlotDuration);
+                days.Add(today.AddDays(i));
             }
 
-            var reservedSlots = _repository.getReservedSlots(doctorId, date);
-
-            return allSlots.Except(reservedSlots).ToList();
+            return days;
         }
 
         public void DeleteAllReservations()

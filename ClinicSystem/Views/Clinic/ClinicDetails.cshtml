@@ -19,7 +19,7 @@
                     <h5 class="card-title">@doctor.FirstName @doctor.LastName</h5>
                     <p class="card-text">Title: @doctor.Title</p>
                     <p class="card-text">Experience: @doctor.ExperienceYears years</p>
-                    <a href="@Url.Action("MakeReservation", "Home", new { doctorId = doctor.Id })" class="btn btn-success">Make a Reservation</a>
+                    <a href="@Url.Action("SelectDays", "Reservation", new { doctorId = doctor.Id })" class="btn btn-success">Make a Reservation</a>
                 </div>
             </div>
         </div>

@@ -41,6 +41,6 @@ namespace ClinicSystem.Services
             return _repository.Delete(id);
         }
 
-        public bool MakeR
+        
     }
 }
