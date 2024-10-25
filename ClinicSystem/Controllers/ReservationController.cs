@@ -91,6 +91,13 @@ namespace ClinicSystem.Controllers
             return View(reservation);
         }
 
+        public IActionResult CancelReservation(int reservationId)
+        {
+           
+            _reservationService.DeleteReservation(reservationId);
+            return RedirectToAction("GetReservationsForUser");
+        }
+
         public IActionResult Success()
         {
             return View();
