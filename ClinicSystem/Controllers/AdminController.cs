@@ -71,5 +71,67 @@ namespace ClinicSystem.Controllers
             model.Clinics = _clinicService.GetAllClinics();
             return View(model);
         }
+
+        [HttpGet]
+        public IActionResult ManageClinics()
+        {
+            var clinics = _clinicService.GetAllClinics();
+            return View(clinics);
+        }
+
+        [HttpGet]
+        public IActionResult ManageDoctors()
+        {
+            var adminDashboard = new AdminDashboardViewModel
+            {
+                Doctors = _doctorService.GetAllDoctors(),
+                Clinics = _clinicService.GetAllClinics()
+            };
+            
+            //var doctors = _doctorService.GetAllDoctors();
+            //ViewBag.Clinics = _clinicService.GetAllClinics();  
+            return View(adminDashboard);
+        }
+
+
+        [HttpPost]
+        public IActionResult UpdateClinic(Clinic clinic)
+        {
+            if (_clinicService.UpdateClinic(clinic))
+            {
+                return RedirectToAction("ManageClinics");
+            }
+            return View("Error");
+        }
+
+        [HttpPost]
+        public IActionResult DeleteClinic(int id)
+        {
+            if (_clinicService.DeleteClinic(id))
+            {
+                return RedirectToAction("ManageClinics");
+            }
+            return View("Error");
+        }
+
+        [HttpPost]
+        public IActionResult UpdateDoctor(Doctor doctor)
+        {
+            if (_doctorService.UpdateDoctor(doctor))
+            {
+                return RedirectToAction("ManageDoctors");
+            }
+            return View("Error");
+        }
+
+        [HttpPost]
+        public IActionResult DeleteDoctor(int id)
+        {
+            if (_doctorService.DeleteDoctor(id))
+            {
+                return RedirectToAction("ManageDoctors");
+            }
+            return View("Error");
+        }
     }
 }

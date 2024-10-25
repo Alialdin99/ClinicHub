@@ -3,6 +3,7 @@ using System.Diagnostics;
 using ClinicSystem.Models;
 using ClinicSystem.Services;
 using ClinicSystem.Services.ClinicSystem.Services;
+using ClinicSystem.View_Models;
 using Microsoft.AspNetCore.Authorization;
 
 namespace ClinicSystem.Controllers
@@ -30,6 +31,12 @@ namespace ClinicSystem.Controllers
         {
             if (User.IsInRole("Admin"))
             {
+                var adminDashboard = new AdminDashboardViewModel
+                {
+                    Doctors = _doctorService.GetAllDoctors(),
+                    Clinics = _clinicService.GetAllClinics()
+                };
+
                 return View("AdminIndex");
             }
             else
