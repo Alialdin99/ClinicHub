@@ -113,7 +113,7 @@ namespace ClinicSystem.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Clinics");
+                    b.ToTable("Clinics", (string)null);
                 });
 
             modelBuilder.Entity("ClinicSystem.Models.Doctor", b =>
@@ -153,7 +153,7 @@ namespace ClinicSystem.Migrations
 
                     b.HasIndex("ClinicId");
 
-                    b.ToTable("Doctors");
+                    b.ToTable("Doctors", (string)null);
                 });
 
             modelBuilder.Entity("ClinicSystem.Models.Reservation", b =>
@@ -189,7 +189,7 @@ namespace ClinicSystem.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("Reservations");
+                    b.ToTable("Reservations", (string)null);
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
