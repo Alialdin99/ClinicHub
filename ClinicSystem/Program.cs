@@ -1,4 +1,5 @@
 using ClinicSystem.DataContext;
+using ClinicSystem.DbContext;
 using ClinicSystem.Extension_methods;
 using ClinicSystem.Extention_methods;
 using ClinicSystem.Models;
@@ -10,7 +11,7 @@ namespace ClinicSystem
 {
     public class Program
     {
-        public static void Main(string[] args)
+        public static async Task Main(string[] args)
         {
             var builder = WebApplication.CreateBuilder(args);
             builder.Services.AddControllersWithViews();
@@ -26,6 +27,13 @@ namespace ClinicSystem
             builder.Services.AddDbContext();
 
             var app = builder.Build();
+            using (var scope = app.Services.CreateScope())
+            {
+                var services = scope.ServiceProvider;
+                var userManager = services.GetRequiredService<UserManager<AppUser>>();
+                await SeedData.Initialize(services, userManager);
+            }
+
 
             // Configure the HTTP request pipeline.
             if (!app.Environment.IsDevelopment())

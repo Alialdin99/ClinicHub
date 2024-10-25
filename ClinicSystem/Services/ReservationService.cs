@@ -9,43 +9,43 @@ namespace ClinicSystem.Services
 {
     public class ReservationService
     {
-        public readonly IReservationRepository _repository;
+        public readonly IReservationRepository _reservationRepository;
   
         public ReservationService(IReservationRepository repository)
         {
-            _repository = repository;
+            _reservationRepository = repository;
         }
 
-        public List<Reservation> GetAll()
+        public List<Reservation> GetAllReservations()
         {
-            List<Reservation> reservations = _repository.GetAll();
+            List<Reservation> reservations = _reservationRepository.GetAll();
             return reservations;
         }
 
-        public Reservation GetById(int id)
+        public Reservation GetReservationById(int id)
         {
-            Reservation reservation = _repository.GetById(id);
+            Reservation reservation = _reservationRepository.GetById(id);
             return reservation;
         }
 
-        public bool Add(Reservation reservation)
+        public bool AddReservation(Reservation reservation)
         {
-            return _repository.Add(reservation);
+            return _reservationRepository.Add(reservation);
         }
 
-        public bool Update(Reservation reservation)
+        public bool UpdateReservation(Reservation reservation)
         {
-            return _repository.Update(reservation);
+            return _reservationRepository.Update(reservation);
         }
 
-        public bool Delete(int id)
+        public bool DeleteReservation(int id)
         {
-            return _repository.Delete(id);
+            return _reservationRepository.Delete(id);
         }
 
         public bool MakeReservation(string userId, int doctorId,int ClinicId , DateTime appointmentTime)
         {
-            bool isAvaliable = _repository.IsAvaliable(doctorId, appointmentTime);
+            bool isAvaliable = _reservationRepository.IsAvaliable(doctorId, appointmentTime);
             if (isAvaliable)
             {
                 var reservation = new Reservation
@@ -56,15 +56,15 @@ namespace ClinicSystem.Services
                     AppointmentDate = appointmentTime,
                     Status = "Confirmed"
                 };
-                _repository.Add(reservation);
+                _reservationRepository.Add(reservation);
                 return true;
             }
             return isAvaliable;
         }
         public List<DateTime> GetAvailableSlots(int doctorId, DateTime date)
         {
-            List<DateTime> allSlots = _repository.GetSlotsForDay(doctorId, date);
-            var reservedSlots = _repository.GetReservedSlots(doctorId, date);
+            List<DateTime> allSlots = _reservationRepository.GetSlotsForDay(doctorId, date);
+            var reservedSlots = _reservationRepository.GetReservedSlots(doctorId, date);
             return allSlots.Except(reservedSlots).ToList();
         }
 
@@ -81,9 +81,14 @@ namespace ClinicSystem.Services
             return days;
         }
 
+        public List<Reservation> GetReservationsForUser(string id)
+        {
+            return _reservationRepository.GetReservationsForUser(id);
+        }
+
         public void DeleteAllReservations()
         {
-            _repository.DeleteAll();
+            _reservationRepository.DeleteAll();
         }
 
 

@@ -9,38 +9,38 @@ namespace ClinicSystem.Services
     {
         public class ClinicService
         {
-            private readonly IClinicRepository _repository;
+            private readonly IClinicRepository _clinicRepository;
 
             public ClinicService(IClinicRepository repository)
             {
-                _repository = repository;
+                _clinicRepository = repository;
             }
 
-            public List<Clinic> GetAll()
+            public List<Clinic> GetAllClinics()
             {
-                List<Clinic> clinics = _repository.GetAll();
+                List<Clinic> clinics = _clinicRepository.GetAll();
                 return clinics;
             }
 
-            public Clinic GetById(int id)
+            public Clinic GetClinicById(int id)
             {
-                Clinic clinic = _repository.GetById(id);
+                Clinic clinic = _clinicRepository.GetById(id);
                 return clinic;
             }
 
-            public bool Add(Clinic clinic)
+            public bool AddClinic(Clinic clinic)
             {
-                return _repository.Add(clinic);
+                return _clinicRepository.Add(clinic);
             }
 
-            public bool Update(Clinic clinic)
+            public bool UpdateClinic(Clinic clinic)
             {
-                return _repository.Update(clinic);
+                return _clinicRepository.Update(clinic);
             }
 
-            public bool Delete(int id)
+            public bool DeleteClinic(int id)
             {
-                return _repository.Delete(id);
+                return _clinicRepository.Delete(id);
             }
         }
     }

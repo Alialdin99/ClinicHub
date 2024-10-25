@@ -3,6 +3,7 @@ using System.Diagnostics;
 using ClinicSystem.Models;
 using ClinicSystem.Services;
 using ClinicSystem.Services.ClinicSystem.Services;
+using Microsoft.AspNetCore.Authorization;
 
 namespace ClinicSystem.Controllers
 {
@@ -18,13 +19,26 @@ namespace ClinicSystem.Controllers
             _clinicService = clinicService;
             _doctorService = doctorService;
         }
-
+        //[Authorize(Roles = "USER")]
+        //public IActionResult Index()
+        //{
+        //    List<Clinic> clinics = _clinicService.GetAll();
+        //    return View(clinics);
+        //}
+        [Authorize]
         public IActionResult Index()
         {
-            List<Clinic> clinics = _clinicService.GetAll();
-            return View(clinics);
+            if (User.IsInRole("Admin"))
+            {
+                return View("AdminIndex");
+            }
+            else
+            {
+                List<Clinic> clinics = _clinicService.GetAllClinics();
+                return View(clinics);
+            }
         }
-        
+
         public IActionResult Privacy()
         {
             return View();

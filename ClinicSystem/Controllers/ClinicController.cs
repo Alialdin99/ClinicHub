@@ -15,7 +15,7 @@ namespace ClinicSystem.Controllers
         }
         public IActionResult ClinicDetails(int id)
         {
-            Clinic clinic = _clinicService.GetById(id);
+            Clinic clinic = _clinicService.GetClinicById(id);
             if (clinic == null)
             {
                 return NotFound();

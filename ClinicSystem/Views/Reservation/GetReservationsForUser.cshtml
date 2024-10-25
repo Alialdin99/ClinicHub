@@ -1,0 +1,19 @@
+﻿@model List<Reservation>
+<div class="card">
+    @foreach (var Reservation in Model)
+    {
+        {
+            <div class="card-header">
+                Featured
+            </div>
+            <div class="card-body">
+                <h5 class="card-title">@Reservation.Clinic.Name</h5>
+                <p class="card-text">@Reservation.AppointmentDate.ToString()</p>
+                <a href="@Url.Action("GetReservationDetails","Reservation",new {reservationId = @Reservation.Id})" class="btn btn-primary">Reservation details</a>
+      
+            </div>
+        }
+    }
+    
+</div>
+
