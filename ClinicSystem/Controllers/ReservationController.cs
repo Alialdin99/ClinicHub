@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using System.Security.Claims;
 using ClinicSystem.Services.ClinicSystem.Services;
+using Microsoft.AspNetCore.Authorization;
 
 namespace ClinicSystem.Controllers
 {
@@ -21,16 +22,16 @@ namespace ClinicSystem.Controllers
             _userManager = userManager;
             _clinicService = clinkService;
         }
-        [HttpGet]
 
+        [HttpGet]
         public IActionResult SelectDays(int doctorId)
         {
             var days = _reservationService.GetNext14Days();
             ViewBag.DoctorId = doctorId;
             return View(days);
         }
+        
         [HttpGet]
-
         public IActionResult SelectTimeSlots(int doctorId, DateTime selectedDate)
         {
             var availableSlots = _reservationService.GetAvailableSlots(doctorId, selectedDate);
@@ -82,8 +83,8 @@ namespace ClinicSystem.Controllers
         //    List<Reservation> reservations = _reservationService.GetReservationsForUser(id);
         //    return View(reservations);
         //}
-        [HttpGet]
 
+        [HttpGet]
         public IActionResult GetReservationDetails(int reservationId)
         {
             Reservation reservation = _reservationService.GetReservationById(reservationId);

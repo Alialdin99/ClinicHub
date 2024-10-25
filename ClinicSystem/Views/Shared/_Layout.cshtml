@@ -1,4 +1,5 @@
-﻿@using Microsoft.AspNetCore.Mvc.TagHelpers
+﻿@using System.Security.Claims
+@using Microsoft.AspNetCore.Mvc.TagHelpers
 @using Microsoft.VisualStudio.Web.CodeGenerators.Mvc.Templates.BlazorIdentity.Pages
 <!DOCTYPE html>
 <html lang="en">
@@ -24,13 +25,12 @@
                         <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
                         </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
-                        </li>
+                       
                         
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Reservation" asp-action="GetReservationsForUser">Your reservations</a>
-                        </li>
+                        @if (User.Identity.IsAuthenticated && User.IsInRole("User"))
+                        {
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Reservation" asp-action="GetReservationsForUser">Reservation</a>
+                        }
                         @if (User.Identity.IsAuthenticated)
                         {
                             <li class="nav-item">

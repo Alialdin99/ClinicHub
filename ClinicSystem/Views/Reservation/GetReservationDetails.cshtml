@@ -1,20 +1,20 @@
 ﻿@model Reservation
 <div class="card">
     
-        {
-            <div class="card-header">
-                Featured
-            </div>
-            <div class="card-body">
-                <h5 class="card-title">Reservation details</h5>
-                <h5 class="card-text">@Model.Clinic.Name</h5>
-                <h5 class="card-text">@Model.Doctor.FirstName @Model.Doctor.LastName</h5>
-                <h5 class="card-text">@Model.User.FirstName @Model.User.LastName</h5>
-                <p class="card-text">@Model.AppointmentDate.ToString()</p>
-                <a href="#" class="btn btn-primary">Go somewhere</a>
-            </div>
-        }
+    
+    <div class="card-header">
+        Featured
+    </div>
+    <div class="card-body">
+        <h5 class="card-title">Reservation details</h5>
+        <h5 class="card-text">Clinic: @Model.Clinic.Name</h5>
+        <h5 class="card-text">Doctor: @Model.Doctor.FirstName @Model.Doctor.LastName</h5>
+        <h5 class="card-text">Patient's Name:@Model.User.FirstName @Model.User.LastName</h5>
+        <p class="card-text">Appointment Date: @Model.AppointmentDate.ToString()</p>
+    </div>
+    
     
 
 </div>
+
 

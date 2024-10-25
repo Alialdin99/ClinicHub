@@ -1,19 +1,23 @@
-﻿@model List<Reservation>
-<div class="card">
-    @foreach (var Reservation in Model)
-    {
+﻿
+
+@model List<Reservation>
+
+<div class="container mt-5">
+    <h2 class="text-center mb-4">Your Reservations</h2>
+    <div class="row">
+        @foreach (var reservation in Model)
         {
-            <div class="card-header">
-                Featured
-            </div>
-            <div class="card-body">
-                <h5 class="card-title">@Reservation.Clinic.Name</h5>
-                <p class="card-text">@Reservation.AppointmentDate.ToString()</p>
-                <a href="@Url.Action("GetReservationDetails","Reservation",new {reservationId = @Reservation.Id})" class="btn btn-primary">Reservation details</a>
-      
+            <div class="col-md-6 mb-4">
+                <div class="card shadow-lg border-0">
+                    <div class="card-header bg-primary text-white">
+                        <h5 class="card-title m-0">@reservation.Clinic.Name</h5>
+                    </div>
+                    <div class="card-body">
+                        <p class="card-text">Appointment Date: @reservation.AppointmentDate.ToString("dddd, MMMM dd, yyyy - hh:mm tt")</p>
+                        <a href="@Url.Action("GetReservationDetails", "Reservation", new { reservationId = reservation.Id })" class="btn btn-outline-primary">Reservation Details</a>
+                    </div>
+                </div>
             </div>
         }
-    }
-    
+    </div>
 </div>
-

@@ -1,30 +1,35 @@
-﻿
-@model ClinicSystem.Models.Clinic
+﻿@model ClinicSystem.Models.Clinic
 
-<div class="card">
-    <img class="card-img-top" src="@Model.ImagePath" alt="Clinic Image">
-    <div class="card-body">
-        <h3 class="card-title">@Model.Name</h3>
+<div class="container mt-5">
+    <div class="card shadow-lg border-0" style="width: 30rem; margin: 0 auto;">
+        <img class="card-img-top" src="@Url.Content($"~/Images/{Model.ImagePath}")"
+             alt="Clinic Image"
+             style="width: 50%; height: auto; object-fit: cover; display: block; margin: 0 auto;">
+        <div class="card-body">
+            <h2 class="card-title text-center text-primary">@Model.Name</h2>
+            <p class="text-muted text-center">Explore our doctors and services</p>
+        </div>
     </div>
 </div>
 
-<h4 class="mt-5">Doctors in this Clinic:</h4>
-<div class="row">
-    @foreach (var doctor in Model.Doctors)
-    {
-        <div class="col-md-4">
-            <div class="card mb-4">
-                <img class="card-img-top" src="@doctor.ImagePath" alt="Doctor Image">
-                <div class="card-body">
-                    <h5 class="card-title">@doctor.FirstName @doctor.LastName</h5>
-                    <p class="card-text">Title: @doctor.Title</p>
-                    <p class="card-text">Experience: @doctor.ExperienceYears years</p>
-                    <a href="@Url.Action("SelectDays", "Reservation", new { doctorId = doctor.Id })" class="btn btn-success">Make a Reservation</a>
+
+    <h3 class="text-center text-secondary mt-5 mb-4">Doctors in this Clinic</h3>
+    <div class="row">
+        @foreach (var doctor in Model.Doctors)
+        {
+            <div class="col-lg-4 col-md-6 mb-5">
+                <div class="card shadow-sm border-0">
+                    <img class="card-img-top" src="@Url.Content($"~/Images/{@doctor.ImagePath}")"
+                         alt="Clinic Image"
+                         style="width: 50%; height: auto; object-fit: cover; display: block; margin: 0 auto; background-color:white;">
+                    <div class="card-body text-center">
+                        <h5 class="card-title">@doctor.FirstName @doctor.LastName</h5>
+                        <p class="card-text">Title: @doctor.Title</p>
+                        <p class="card-text">Experience: @doctor.ExperienceYears years</p>
+                        <a href="@Url.Action("SelectDays", "Reservation", new { doctorId = doctor.Id })" class="btn btn-outline-success px-4">Make a Reservation</a>
+                    </div>
                 </div>
             </div>
-        </div>
-    }
-
+        }
+    </div>
 </div>
-
-

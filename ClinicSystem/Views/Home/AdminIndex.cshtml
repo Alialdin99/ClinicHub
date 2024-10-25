@@ -2,14 +2,10 @@
     ViewData["Title"] = "Admin Dashboard";
 }
 
-<h2>Admin Dashboard</h2>
-
-<ul>
-    <li>
-        <a href="@Url.Action("AddClinic","Admin")"> Add Clinic</a>
-    </li>
-
-    <li>
-        <a href="@Url.Action("AddDoctor","Admin")">Add Doctor</a>
-    </li>
-</ul>
+<div class="container mt-5">
+    <h2 class="text-center mb-4">Admin Dashboard</h2>
+    <div class="list-group">
+        <a href="@Url.Action("AddClinic", "Admin")" class="list-group-item list-group-item-action">Add Clinic</a>
+        <a href="@Url.Action("AddDoctor", "Admin")" class="list-group-item list-group-item-action">Add Doctor</a>
+    </div>
+</div>
